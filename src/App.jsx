@@ -104,7 +104,7 @@ export default App;
 import { useState, useCallback, useEffect, useRef } from "react";
 // import "./App.css";
 
-export default function App() {
+export default function App() { 
   const [length, setLength] = useState(8);
   const [numberAllowed, setNumberAllowed] = useState(false);
   const [charAllowed, setCharAllowed] = useState(false);
@@ -135,6 +135,7 @@ export default function App() {
   }, [length, numberAllowed, charAllowed, setPassword]);
 
   const copyPasswordToClip = useCallback(() => {
+    passwordRef.current?.select();
     window.navigator.clipboard.writeText(password);
   }, [password]);
 
