@@ -101,7 +101,7 @@ export default App;
 
 */
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 // import "./App.css";
 
 export default function App() {
@@ -109,6 +109,10 @@ export default function App() {
   const [numberAllowed, setNumberAllowed] = useState(false);
   const [charAllowed, setCharAllowed] = useState(false);
   const [password, setPassword] = useState(null);
+
+  // useRef
+
+  const passwordRef = useRef(null);
 
   const passwordGenerator = useCallback(() => {
     let pass = "";
@@ -130,6 +134,10 @@ export default function App() {
     setPassword(pass);
   }, [length, numberAllowed, charAllowed, setPassword]);
 
+  const copyPasswordToClip = useCallback(() => {
+    window.navigator.clipboard.writeText(password);
+  }, [password]);
+
   useEffect(() => {
     passwordGenerator();
   }, [length, numberAllowed, charAllowed, passwordGenerator]);
@@ -143,8 +151,9 @@ export default function App() {
             className="outline-none w-full py-1 px-3"
             placeholder="password"
             readOnly
+            ref={passwordRef}
           />
-          <button>copy</button>
+          <button onClick={copyPasswordToClip}>copy</button>
         </div>
 
         <div className="flex text-sm gap-x-2">
@@ -179,7 +188,7 @@ export default function App() {
               id="numberInput"
               onChange={() => {
                 setNumberAllowed((prev) => !prev);
-              }}   
+              }}
             />
             <label htmlFor="characterInput">Characters</label>
           </div>
