@@ -179,7 +179,7 @@ export default function App() {
               id="numberInput"
               onChange={() => {
                 setNumberAllowed((prev) => !prev);
-              }}
+              }}   
             />
             <label htmlFor="characterInput">Characters</label>
           </div>
